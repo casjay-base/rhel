@@ -17,20 +17,26 @@ companion commit)
 ## root/.local/bin/run-os-update (found 2026-09-09, firewalld fix
 companion commit)
 
-- [ ] Rename internal functions to the required `__` prefix: `devnull`,
-      `execute`, `run_grub`, `rm_if_exists` (rename definition + every
-      call site for each)
-- [ ] `@@Version` header (202308102203-git) does not match `VERSION=`
-      (202506190941-git) — sync them
-- [ ] Add `--` before the grep query at lines 82 (x2), 116 (x2), 143, 144,
-      149, 153 (x2), 156, 191 (x3), 196 (x3), 218, 475 (x5), 476 (x5), 477
-      (x3), 478 (x2), 543, 716, 725, 774, 778, 782, 815 (x2), 923, 926
-- [ ] Bare `exit` with no code at lines 213, 424, 426, 575, 1057 — use
-      `exit 0`/`1`/`"$?"`
+Fixed 2026-09-17: `__` prefix on `devnull`/`execute`/`run_grub`/
+`rm_if_exists` (+ all call sites); `##@Version` header synced to
+`VERSION=`; `--` added before every grep query; all bare `exit`
+converted to `exit 0`/`1`. Remaining, not yet fixed:
+
 - [ ] Add a `--color` flag to the argument parser
-- [ ] Check the `NO_COLOR` env var
-- [ ] Inline comments at lines 221–230 (color definitions) — move above
+- [ ] Check the `NO_COLOR` env var before emitting color codes
+      (lines ~220-229)
+- [ ] Inline comments at lines 221–229 (color definitions) — move above
       the line each describes
+- [ ] `local` missing on `pkgs="$(rpm -qa ...)"` in `__kernel_ml` (line
+      93) and `__kernel_lt` (line 127)
+- [ ] UUOC: `grub_bin_name="$(basename "$grub_bin" ...)"` (line 146),
+      `filename="$(basename "$file")"` (line 510) — use `"${var##*/}"`;
+      `$(dirname "$path")` at lines 493, 637, 722 — use `"${path%/*}"`
+- [ ] UUOC: `echo "$PATH" | grep -q -- "/root/.local/bin"` (line 218) —
+      use `[[ "$PATH" == */root/.local/bin* ]]`
+- [ ] Missing man page (`man/run-os-update.1`) and bash completions
+      (`completions/_run-os-update_completions.bash`) — route to
+      doc-sync agent
 
 ## root/.local/bin/update-resolv.sh (found 2026-09-13, centos->rhel
 rename companion commit — not on lines that commit touched)
