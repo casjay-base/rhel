@@ -9,24 +9,16 @@ HostKey /etc/ssh/ssh_host_ed25519_key
 RekeyLimit default none
 SyslogFacility AUTHPRIV
 
-# Crypto pins - keep in sync with the matching lines in ssh_config
-Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
-MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512,hmac-sha2-256
-KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
-HostKeyAlgorithms ssh-ed25519,rsa-sha2-512,rsa-sha2-256
-
-LoginGraceTime 30
-PermitRootLogin prohibit-password
+LoginGraceTime 300
+PermitRootLogin yes
 StrictModes yes
 MaxAuthTries 3
-MaxSessions 10
+MaxSessions 99999
 IgnoreRhosts yes
 KeepAlive yes
 
 PermitEmptyPasswords no
-PasswordAuthentication no
-PubkeyAuthentication yes
-KbdInteractiveAuthentication no
+PasswordAuthentication yes
 
 ChallengeResponseAuthentication no
 
@@ -37,8 +29,8 @@ ChallengeResponseAuthentication no
 #KerberosUseKuserok yes
 
 # GSSAPI options
-GSSAPIAuthentication no
-GSSAPICleanupCredentials yes
+GSSAPIAuthentication yes
+GSSAPICleanupCredentials no
 #GSSAPIStrictAcceptorCheck yes
 #GSSAPIKeyExchange no
 #GSSAPIEnablek5users no

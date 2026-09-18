@@ -1,6 +1,3 @@
-# Default to the unprivileged munin user; plugins that genuinely need root
-# carry their own explicit "user root" in the per-plugin sections below
-#
 # Every CHANGEME_AT_BOOTSTRAP below is a deliberately non-functional token, not
 # a working default - this file is world-readable in a public repo, so no real
 # credential may ever be committed here. Replace them on the host after
@@ -8,8 +5,9 @@
 # plugin fails to connect and reports nothing until you do, which is the
 # intended loud failure. Previously these shipped as literal working-looking
 # passwords that deployed verbatim.
+
 [*]
-user munin
+user root
 env.username root
 env.password CHANGEME_AT_BOOTSTRAP
 env.host myserverdomainname
@@ -124,3 +122,4 @@ env.community public
 env.user administrator
 env.pass CHANGEME_AT_BOOTSTRAP
 env.vCenter vcenter
+
