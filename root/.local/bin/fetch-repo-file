@@ -95,7 +95,7 @@ RELEASE_TYPE="$(__release_type)"
 __save_remote_file "https://raw.githubusercontent.com/rpm-devel/casjay-release/main/RPM-GPG-KEY-casjay" "/etc/pki/rpm-gpg/RPM-GPG-KEY-casjay"
 if [ "$(hostname -s)" = "pbx" ]; then
   SKIP_REPO_FILE="yes"
-  if [  -f "/etc/yum.repos.d/casjay.repo" ]; then
+  if [ -f "/etc/yum.repos.d/casjay.repo" ]; then
     SKIP_REPO_FILE="no"
   fi
 fi
