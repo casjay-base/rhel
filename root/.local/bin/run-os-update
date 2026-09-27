@@ -592,7 +592,7 @@ if [ -z "$RUN_OS_UPDATE_FORCE_INST" ] && [ "$RUN_OS_UPDATE_REMOTE_VERSION" = "$R
 EOF
   echo -e "Done updating the cron file\n"
   if [ "$CRON_UPDATE" = "yes" ]; then
-    echo "# The script for fixes has finished on $(date) for $HOSTNAME: bye 👋"
+    echo "# The script for fixes has finished on $(date) for $HOSTNAME: bye"
   else
     echo -e "The script for fixes has finished"
   fi
