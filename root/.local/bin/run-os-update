@@ -1105,7 +1105,7 @@ EOF
   echo -e "Updated to version $RUN_OS_UPDATE_REMOTE_VERSION from $RUN_OS_UPDATE_INSTALLED_VERSION\nDone running the $APPNAME script\n\n"
 fi
 if [ -f "$LOG_FILE" ]; then
-  cat "$LOG_FILE" | sendemail-to --subject "$HOSTNAME has been updated" --from "no-reply@$HOSTNAME" --recipient "updates@$HOSTNAME" >/dev/null
+  sendemail-to --subject "$HOSTNAME has been updated" --from "no-reply@$HOSTNAME" --recipient "updates@$HOSTNAME" <"$LOG_FILE" >/dev/null
   rm -Rf "$LOG_FILE"
 fi
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
