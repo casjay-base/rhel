@@ -25,7 +25,8 @@ __certbot_test() { eval "$CERTBOT_BIN" renew --dry-run --agree-tos --expand --dn
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 __certbot_new() {
   local domains="$*"
-  certbot certonly -n --agree-tos -m "casjay+ssl@gmail.com" --expand --dns-rfc2136 --dns-rfc2136-credentials "$CERTBOT_FILE" --key-path "$SSL_KEY" --fullchain-path "$SSL_CERT" $domains || return 1
+  certbot certonly -n --agree-tos -m "casjay+ssl@gmail.com" --expand --dns-rfc2136 --dns-rfc2136-credentials "$CERTBOT_FILE" \
+    --key-path "$SSL_KEY" --fullchain-path "$SSL_CERT" $domains || return 1
   [ -d "$SSL_DIR/$1" ] && [ ! -d "$SSL_DIR/domain" ] && ln -sf "$SSL_DIR/$1" "$SSL_DIR/domain"
   [ -d "$SSL_DIR/domain" ] || return 1
 }
