@@ -504,7 +504,7 @@ MYSERVER_NET_DEVICE="$(ip route | grep -- default | sed -e "s/^.*dev.//" -e "s/.
 chattr -i /etc/hosts &>/dev/null
 chattr -i /etc/resolv.conf &>/dev/null
 [ -f "/etc/nginx/vhosts.d/default.conf" ] && chattr -i /etc/nginx/vhosts.d/default.conf &>/dev/null
-[ -f "$(dirname "$WEB_CONF")/vhosts.d/000-default.conf" ] && chattr -i "$(dirname "$WEB_CONF")/vhosts.d/000-default.conf" &>/dev/null
+[ -f "${WEB_CONF%/*}/vhosts.d/000-default.conf" ] && chattr -i "${WEB_CONF%/*}/vhosts.d/000-default.conf" &>/dev/null
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if [ -w "/etc/resolv.conf" ]; then
   printf '%s\n%s\n%s\n' "search casjay.in" "nameserver 1.1.1.1" "nameserver 8.8.8.8" | tee "/etc/resolv.conf" &>/dev/null
@@ -648,7 +648,7 @@ else
 
   echo -e "Removing old files"
   rm -Rf "$BIND_CONF_DIR"/named* "$BIND_DATA_DIR"/* /etc/ntp* /etc/cron*/0* /etc/cron*/dailyjobs &>/dev/null
-  rm -Rf /var/ftp/uploads "$(dirname "$WEB_CONF")/conf.d/ssl.conf" "$APP_TMP_DIR" /etc/samba/*.example &>/dev/null
+  rm -Rf /var/ftp/uploads "${WEB_CONF%/*}/conf.d/ssl.conf" "$APP_TMP_DIR" /etc/samba/*.example &>/dev/null
   echo -e "Done removing old files\n"
 
   echo -e "Setting up vnstat-php-frontend"
@@ -733,7 +733,7 @@ else
     cp -Rf "$APP_TMP_DIR/etc/nginx/nginx.conf" "/etc/nginx/nginx.conf"
   fi
 
-  if [ -f "$APP_TMP_DIR$WEB_CONF" ] && [ -d "$(dirname "$WEB_CONF")" ]; then
+  if [ -f "$APP_TMP_DIR$WEB_CONF" ] && [ -d "${WEB_CONF%/*}" ]; then
     echo -e "$APP_TMP_DIR$WEB_CONF >$WEB_CONF"
     cp -Rf "$APP_TMP_DIR$WEB_CONF" "$WEB_CONF"
   fi
