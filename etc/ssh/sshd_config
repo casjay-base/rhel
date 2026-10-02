@@ -9,21 +9,15 @@ HostKey /etc/ssh/ssh_host_ed25519_key
 RekeyLimit default none
 SyslogFacility AUTHPRIV
 
-LoginGraceTime 300
+LoginGraceTime 20
 PermitRootLogin yes
 StrictModes yes
 MaxAuthTries 3
 MaxSessions 99999
-# OpenSSH's compiled-in default (10:30:100) throttles/drops new
-# unauthenticated connections once 10 are concurrently open - under a
-# brute-force flood (dozens of bot IPs hammering at once, which these
-# internet-facing hosts see constantly) this hits legitimate
-# connections too, producing "kex_exchange_identification: read:
-# connection reset by peer" on the client before the SSH banner even
-# arrives. fail2ban is the actual abuse-mitigation layer (AI.md's
-# "Firewall policy" section); this limit should only ever be a sanity
-# ceiling, not something real traffic runs into.
+# Raised from the 10:30:100 default, which brute-force floods were hitting and resetting real connections.
 MaxStartups 100:30:200
+# Auto-throttles abusive source IPs so they stop crowding out real connections (OpenSSH 9.8+).
+PerSourcePenalties yes
 IgnoreRhosts yes
 KeepAlive yes
 
