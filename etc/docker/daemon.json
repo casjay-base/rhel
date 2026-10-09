@@ -1,8 +1,9 @@
 {
   "ipv6": true,
   "ip6tables": true,
+  "experimental": true,
   "fixed-cidr-v6": "fd00:dead:beef::/64",
-  "no-new-privileges": true,
+  "no-new-privileges": false,
   "icc": false,
   "live-restore": true
 }
