@@ -307,11 +307,16 @@ __pkg_mgr() {
   arch) printf '%s' "pacman" ;;
   alpine) printf '%s' "apk" ;;
   *)
-    if command -v dnf >/dev/null 2>&1; then printf '%s' "dnf"
-    elif command -v apt-get >/dev/null 2>&1; then printf '%s' "apt"
-    elif command -v pacman >/dev/null 2>&1; then printf '%s' "pacman"
-    elif command -v apk >/dev/null 2>&1; then printf '%s' "apk"
-    else printf '%s' "yum"
+    if command -v dnf >/dev/null 2>&1; then
+      printf '%s' "dnf"
+    elif command -v apt-get >/dev/null 2>&1; then
+      printf '%s' "apt"
+    elif command -v pacman >/dev/null 2>&1; then
+      printf '%s' "pacman"
+    elif command -v apk >/dev/null 2>&1; then
+      printf '%s' "apk"
+    else
+      printf '%s' "yum"
     fi
     ;;
   esac
@@ -652,12 +657,15 @@ else
   echo -e "Done removing old files\n"
 
   echo -e "Setting up vnstat-php-frontend"
-  if [ -d "$WEB_ROOT/vnstat/.git" ]; then
-    git -C "$WEB_ROOT/vnstat" reset --hard -q
-    git -C "$WEB_ROOT/vnstat" pull -q
+  if [ -d "/var/www/html/vnstat/.git" ]; then
+    if grep -qs 'solbu/vnstat-php-frontend' '/var/www/html/vnstat/.git/config'; then
+      sed -i 's|solbu/vnstat-php-frontend|forkmgr/bjd-vnstat-php-frontend|g' "/var/www/html/vnstat/.git/config"
+    fi
+    git -C "/var/www/html/vnstat" reset --hard
+    git -C "/var/www/html/vnstat" pull -q
   else
-    [ -d "$WEB_ROOT/vnstat" ] && rm -Rf "$WEB_ROOT/vnstat"
-    git clone -q "https://github.com/solbu/vnstat-php-frontend" "$WEB_ROOT/vnstat"
+    __rm_if_exists "/var/www/html/vnstat"
+    git clone -q "https://github.com/forkmgr/bjd-vnstat-php-frontend" "/var/www/html/vnstat"
   fi
   echo -e "Done setting up vnstat-php-frontend\n"
 
