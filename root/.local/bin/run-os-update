@@ -667,6 +667,12 @@ else
     __rm_if_exists "/var/www/html/vnstat"
     git clone -q "https://github.com/forkmgr/bjd-vnstat-php-frontend" "/var/www/html/vnstat"
   fi
+  if [ -d "/var/www/html/vnstat/dumps" ]; then
+    rm -Rf "/var/www/html/vnstat/dumps"
+  fi
+  if [ -d "/var/www/html/vnstat/themes/casjaysdev" ]; then
+    rm -Rf "/var/www/html/vnstat/themes/casjaysdev/"
+  fi
   echo -e "Done setting up vnstat-php-frontend\n"
 
   echo -e "Setting up phpsysinfo"
